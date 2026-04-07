@@ -1,1 +1,27 @@
 digest bookmarks
+
+🚀 実行方法
+bash
+123
+📝 主要オプション
+オプション
+説明
+--folder
+処理対象のブックマークフォルダ名（必須）
+--output
+保存先ディレクトリ（デフォルト: ./saved_pages）
+--delay
+リクエスト間隔（秒）。サーバー負荷/BAN防止用（デフォルト: 1.5）
+--limit
+処理上限数。テスト時に --limit 3 など指定可能
+--bookmarks
+Bookmarksファイルの直接指定（マルチプロファイル用）
+⚠️ 重要な注意事項
+Chromeの終了必須: Chrome起動中は Bookmarks ファイルがロックされ、読み込みに失敗します。実行前に必ず終了してください。
+JavaScript描画ページ: requests は静的HTMLのみ取得します。SPA・無限スクロール・JS依存ページは正しく変換できません。必要な場合は playwright または selenium によるヘッドレスブラウザ取得に置き換えてください。
+レート制限・アクセス制御: 短時間に大量リクエストするとIPブロックやCAPTCHAが発生します。--delay を調整し、個人利用範囲で実行してください。
+画像・外部リソース: 現在のバージョンはテキスト中心のMD化です。画像をローカルにダウンロードしたい場合は、bs4 で img src を抽出し requests で取得する処理を追加してください。
+🔧 さらに便利にする場合の拡張ヒント
+記事抽出精度向上: html_to_markdown() 内で trafilatura.extract() に切り替えると、広告/ナビ除去精度が劇的に上がります。
+マルチプロファイル対応: --bookmarks "%LOCALAPPDATA%\Google\Chrome\User Data\Profile 2\Bookmarks" のように指定可能。
+定期実行: cron（macOS/Linux）または Task Scheduler（Windows）で毎日自動実行し、ブックマークを自動アーカイブ化できます。
